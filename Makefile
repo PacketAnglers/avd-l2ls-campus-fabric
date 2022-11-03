@@ -20,4 +20,4 @@ start-lab: ## Build AVD Configs
 
 .PHONY: stop-lab
 stop-lab: ## Build AVD Configs
-	sudo clab destroy -t clab/campus-l2ls.yml
+	sudo clab destroy -t clab/campus-l2ls.yml --cleanup
