@@ -1,0 +1,94 @@
+static_routes:
+- vrf: MGMT
+  destination_address_prefix: 0.0.0.0/0
+  gateway: 172.100.100.1
+- destination_address_prefix: 0.0.0.0/0
+  gateway: 10.10.10.1
+service_routing_protocols_model: multi-agent
+ip_routing: true
+vlan_internal_order:
+  allocation: ascending
+  range:
+    beginning: 1006
+    ending: 1199
+name_server:
+  source:
+    vrf: MGMT
+  nodes:
+  - 8.8.4.4
+  - 8.8.8.8
+spanning_tree:
+  mode: mstp
+  mst_instances:
+    '0':
+      priority: 16384
+local_users:
+  admin:
+    privilege: 15
+    role: network-admin
+    sha512_password: $6$eucN5ngreuExDgwS$xnD7T8jO..GBDX0DUlp.hn.W7yW94xTjSanqgaQGBzPIhDAsyAl9N4oScHvOMvf07uVBFI4mKMxwdVEUVKgY/.
+vrfs:
+  MGMT:
+    ip_routing: false
+management_interfaces:
+  Management0:
+    description: oob_management
+    shutdown: false
+    vrf: MGMT
+    ip_address: 172.100.100.105/24
+    gateway: 172.100.100.1
+    type: oob
+  Vlan10:
+    description: L2LEAF_INBAND_MGMT
+    shutdown: false
+    mtu: 1500
+    ip_address: 10.10.10.8/24
+    gateway: 10.10.10.1
+    type: inband
+management_api_http:
+  enable_vrfs:
+    MGMT: {}
+  enable_https: true
+ethernet_interfaces:
+  Ethernet1/1:
+    peer: SPINE1
+    peer_interface: Ethernet49/1
+    peer_type: l3spine
+    description: SPINE1_Ethernet49/1
+    type: switched
+    shutdown: false
+    channel_group:
+      id: 11
+      mode: active
+  Ethernet1/3:
+    peer: SPINE2
+    peer_interface: Ethernet49/1
+    peer_type: l3spine
+    description: SPINE2_Ethernet49/1
+    type: switched
+    shutdown: false
+    channel_group:
+      id: 11
+      mode: active
+port_channel_interfaces:
+  Port-Channel11:
+    description: SPINES_Po491
+    type: switched
+    shutdown: false
+    vlans: 10,210,220,230
+    mode: trunk
+vlans:
+  210:
+    tenant: MY_FABRIC
+    name: IDF2-Data
+  220:
+    tenant: MY_FABRIC
+    name: IDF2-Voice
+  230:
+    tenant: MY_FABRIC
+    name: IDF2-Guest
+  10:
+    tenant: system
+    name: L2LEAF_INBAND_MGMT
+ip_igmp_snooping:
+  globally_enabled: true

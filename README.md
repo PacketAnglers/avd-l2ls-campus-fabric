@@ -1,2 +1,3 @@
-# avd-l2ls-campus-fabric
-AVD - L2LS Campus Fabric Demo
+# AVD - L2LS Campus Fabric Demo
+
+![Figure: 1](images/campus_topo.svg)

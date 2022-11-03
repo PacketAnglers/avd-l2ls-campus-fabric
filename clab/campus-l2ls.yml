@@ -1,0 +1,198 @@
+---
+# --------------------------------------------------------------
+# AVD L2LS Testing Topology
+# --------------------------------------------------------------
+
+name: campus-l2ls
+prefix: ""
+
+mgmt:
+  network: mgmt
+  ipv4_subnet: 172.100.100.0/24
+
+topology:
+
+  defaults:
+    env:
+      INTFTYPE: et
+
+  kinds:
+    ceos:
+      image: ceos:4.28.1F
+    linux:
+      image: mitchv85/ohv-host
+
+  nodes:
+
+#########################
+# SPINEs                #
+#########################
+
+    SPINE1:
+      kind: ceos
+      mgmt_ipv4: 172.100.100.101
+      startup-config: base-configs/SPINE1.cfg
+      ports:
+        - '22001:22'
+        - '8001:80'
+        - '44301:443'
+
+    SPINE2:
+      kind: ceos
+      mgmt_ipv4: 172.100.100.102
+      startup-config: base-configs/SPINE2.cfg
+      ports:
+        - '22002:22'
+        - '8002:80'
+        - '44302:443'
+
+#########################
+# Leafs/Leaves          #
+#########################
+
+    LEAF1A:
+      kind: ceos
+      mgmt_ipv4: 172.100.100.103
+      startup-config: base-configs/LEAF1A.cfg
+      ports:
+        - '22003:22'
+        - '8003:80'
+        - '44303:443'
+
+    LEAF1B:
+      kind: ceos
+      mgmt_ipv4: 172.100.100.104
+      startup-config: base-configs/LEAF1B.cfg
+      ports:
+        - '22004:22'
+        - '8004:80'
+        - '44304:443'
+
+    LEAF2A:
+      kind: ceos
+      mgmt_ipv4: 172.100.100.105
+      startup-config: base-configs/LEAF2A.cfg
+      ports:
+        - '22005:22'
+        - '8005:80'
+        - '44305:443'
+
+    LEAF3A:
+      kind: ceos
+      mgmt_ipv4: 172.100.100.106
+      startup-config: base-configs/LEAF3A.cfg
+      ports:
+        - '22006:22'
+        - '8006:80'
+        - '44306:443'
+
+    LEAF3B:
+      kind: ceos
+      mgmt_ipv4: 172.100.100.107
+      startup-config: base-configs/LEAF3B.cfg
+      ports:
+        - '22007:22'
+        - '8007:80'
+        - '44307:443'
+
+    LEAF3C:
+      kind: ceos
+      mgmt_ipv4: 172.100.100.108
+      startup-config: base-configs/LEAF3C.cfg
+      ports:
+        - '22008:22'
+        - '8008:80'
+        - '44308:443'
+
+    LEAF3D:
+      kind: ceos
+      mgmt_ipv4: 172.100.100.109
+      startup-config: base-configs/LEAF3D.cfg
+      ports:
+        - '22009:22'
+        - '8009:80'
+        - '44309:443'
+
+    LEAF3E:
+      kind: ceos
+      mgmt_ipv4: 172.100.100.110
+      startup-config: base-configs/LEAF3E.cfg
+      ports:
+        - '22010:22'
+        - '8010:80'
+        - '44310:443'
+
+    WAN1:
+      kind: ceos
+      mgmt_ipv4: 172.100.100.111
+      startup-config: base-configs/WAN1.cfg
+      ports:
+        - '22011:22'
+        - '8011:80'
+        - '44311:443'
+
+    WAN2:
+      kind: ceos
+      mgmt_ipv4: 172.100.100.112
+      startup-config: base-configs/WAN2.cfg
+      ports:
+        - '22012:22'
+        - '8012:80'
+        - '44312:443'
+
+  links:
+
+########################
+# SPINE1/2 PEER-LINK  #
+########################
+    - endpoints: ["SPINE1:et55_1", "SPINE2:et55_1"]
+    - endpoints: ["SPINE1:et56_1", "SPINE2:et56_1"]
+
+########################
+# LEAF1A/1B PEER-LINK  #
+########################
+    - endpoints: ["LEAF1A:et53", "LEAF1B:et53"]
+    - endpoints: ["LEAF1A:et54", "LEAF1B:et54"]
+
+########################
+# LEAF3A/3B PEER-LINK  #
+########################
+    - endpoints: ["LEAF3A:et98_3", "LEAF3B:et98_3"]
+    - endpoints: ["LEAF3A:et98_4", "LEAF3B:et98_4"]
+
+####################
+# SPINE1 to LEAF   #
+####################
+    - endpoints: ["SPINE1:et1", "LEAF1A:et51"]
+    - endpoints: ["SPINE1:et49_1", "LEAF2A:et1_1"]
+    - endpoints: ["SPINE1:et50_1", "LEAF3A:et97_1"]
+    - endpoints: ["SPINE1:et51_1", "LEAF3B:et97_1"]
+
+####################
+# SPINE2 to LEAF   #
+####################
+
+    - endpoints: ["SPINE2:et1", "LEAF1B:et51"]
+    - endpoints: ["SPINE2:et49_1", "LEAF2A:et1_3"]
+    - endpoints: ["SPINE2:et50_1", "LEAF3A:et97_2"]
+    - endpoints: ["SPINE2:et51_1", "LEAF3B:et97_2"]
+
+########################
+# LEAF3A/3B LEAFS      #
+########################
+    - endpoints: ["LEAF3A:et97_3", "LEAF3C:et97_1"]
+    - endpoints: ["LEAF3B:et97_3", "LEAF3C:et97_2"]
+
+    - endpoints: ["LEAF3A:et97_4", "LEAF3D:et97_1"]
+    - endpoints: ["LEAF3B:et97_4", "LEAF3D:et97_2"]
+
+    - endpoints: ["LEAF3A:et98_1", "LEAF3E:et97_1"]
+    - endpoints: ["LEAF3B:et98_1", "LEAF3E:et97_2"]
+
+
+####################
+# WAN TO SPINES    #
+####################
+    - endpoints: ["WAN1:et1_1", "SPINE1:et52_1"]
+    - endpoints: ["WAN2:et1_1", "SPINE2:et52_1"]
+    - endpoints: ["WAN1:et2_1", "WAN2:et2_1"]
