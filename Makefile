@@ -8,11 +8,15 @@ help: ## Display help message
 
 .PHONY: build
 build: ## Build AVD Configs
-	ansible-playbook build.yml
+	ansible-playbook playbooks/build.yml
 
 .PHONY: deploy
 deploy: ## Build AVD Configs
-	ansible-playbook deploy.yml
+	ansible-playbook playbooks/deploy.yml
+
+.PHONY: ping
+ping: ## Test Connectivity
+	ansible-playbook playbooks/ping.yml
 
 .PHONY: start-lab
 start-lab: ## Build AVD Configs

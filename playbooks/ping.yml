@@ -1,0 +1,11 @@
+
+---
+- name: Test Connectivity to Lab Nodes
+  hosts: DC1_FABRIC
+  connection: local
+  gather_facts: false
+
+  tasks:
+
+  - name: Ping Hosts
+    ping:
