@@ -152,7 +152,7 @@ management api http-commands
 
 ```eos
 !
-username admin privilege 15 role network-admin secret sha512 $6$eucN5ngreuExDgwS$xnD7T8jO..GBDX0DUlp.hn.W7yW94xTjSanqgaQGBzPIhDAsyAl9N4oScHvOMvf07uVBFI4mKMxwdVEUVKgY/.
+username admin privilege 15 role network-admin secret sha512 $6$zMFtJNDCdXNd5rQ9$2.P8pfwopGK6NmRYubumSRhgT.ee6vcqaDfvN9VFyFIGhewx3uAVxE4n.M8wvlN3SSkjYtRLO8XLklr5R/nAg/
 ```
 
 ## AAA Authorization
