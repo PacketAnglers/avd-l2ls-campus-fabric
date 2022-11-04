@@ -1,17 +1,21 @@
 # AVD - L2LS Campus Fabric Demo
 
+## Summary
+
+This repository is a fully functioning Campus Fabric running on cEOS nodes deployed via ContainerLab.  All the AVD input variable files are pre-defined to make it easy to build and deploy configs to the topology.
+
 ![Figure: 1](images/campus_topo.svg)
 
 ## Requirements
 
-- Linux Host
-  - Docker and Containerlab installed
-  - 8 vCPUs and 32GB RAM (recommended)
-  - AVD installed - docs [here](https://avd.sh/en/stable/docs/installation/collection-installation.html) - install the latest devel branch
-  - 4.28.3M cEOS imported to Docker
-    - you can use a different version by updating image name in campus-l2ls.yml containerlab topology file.
-
-> To import cEOS image into docker `docker import cEOS-lab-4.27.3F.tar ceos:4.27.3F`
+- Linux Host (Ubuntu 20.04 recommended)
+- Docker installed
+- [Containerlab](https://containerlab.dev/install/) installed
+- make installed (optional)
+- 8 vCPUs and 32GB RAM (recommended)
+- AVD installed - docs [here](https://avd.sh/en/stable/docs/installation/collection-installation.html) - install the latest devel branch
+- 4.28.3M cEOS imported to Docker
+  - You can use a different version by updating image name in campus-l2ls.yml containerlab topology file. To import a cEOS image into docker, run example command: `docker import cEOS-lab-4.27.3F.tar ceos:4.27.3F`
 
 ## Documentation
 
@@ -27,6 +31,10 @@ git clone https://github.com/PacketAnglers/avd-l2ls-campus-fabric.git
 
 ``` bash
 make start-lab
+
+# or
+
+sudo clab deploy -t clab/campus-l2ls.yml --reconfigure
 ```
 
 You should see something like this:
@@ -58,6 +66,10 @@ Review the content of the individual `group_vars` files.
 
 ``` bash
 make build
+
+# or
+
+ansible-playbook playbooks/build.yml
 ```
 
 > View the configs and docs generated.  `intended/configs` and `documentation/devices`.
@@ -66,6 +78,10 @@ make build
 
 ``` bash
 make deploy
+
+# or
+
+ansible-playbook playbooks/deploy.yml
 ```
 
 ## Connect to Switches
@@ -129,4 +145,8 @@ interface Ethernet1
 
 ``` bash
 make stop-lab
+
+# or
+
+sudo clab destroy -t clab/campus-l2ls.yml --cleanup
 ```
