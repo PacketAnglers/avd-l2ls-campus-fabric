@@ -70,7 +70,16 @@ make deploy
 
 ## Connect to Switches
 
-Example to connect to a switch with docker exec command.
+SSH to SPINE1
+
+- username: admin
+- password: admin
+
+``` bash
+ssh admin@172.100.100.101
+```
+
+Or connect to SPINE1 via Docker exec.
 
 ``` bash
 sudo docker exec -it SPINE1 Cli
