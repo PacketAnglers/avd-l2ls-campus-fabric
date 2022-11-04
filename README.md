@@ -69,7 +69,39 @@ docker exec -it SPINE1 Cli
 
 ## Add 802.1x Port Configs
 
-- Uncomment network_ports: in DC1_NETWORK_PORTS.yml
+Add individual 802.1x port configuration to the LEAF switches.
+
+- IDF1 LEAFs - ports Ethernet1-48
+- IDF2 LEAF - ports Ethernet3/1-48-Ethernet7/1-48 (5 modules - 240 ports)
+- IDF3 LEAFs - ports Ethernet1-96
+
+Add the following example 802.1x port config to each port above.  We use Port Profiles and Networkjs Ports feature to accomplish this with a small data model per IDF.
+
+### Example 802.1x Port Config
+
+``` bash
+interface Ethernet1
+   description IDF1 Standard Port
+   no shutdown
+   switchport trunk native vlan 110
+   switchport phone vlan 120
+   switchport phone trunk untagged
+   switchport mode trunk phone
+   switchport
+   dot1x pae authenticator
+   dot1x authentication failure action traffic allow vlan 130
+   dot1x reauthentication
+   dot1x port-control auto
+   dot1x host-mode multi-host authenticated
+   dot1x mac based authentication
+   dot1x timeout tx-period 3
+   dot1x timeout reauth-period server
+   dot1x reauthorization request limit 3
+   spanning-tree portfast
+   spanning-tree bpduguard enable
+```
+
+- Uncomment network_ports: section in DC1_NETWORK_PORTS.yml
 - run `make build` again
 - show intended/configs
 

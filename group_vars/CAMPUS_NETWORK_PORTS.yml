@@ -21,7 +21,7 @@ port_profiles:
         tx_period: 3
       reauthorization_request_limit: 3
 
-network_ports:
+# network_ports:
 
 # # ---------------- IDF1 ----------------
 
