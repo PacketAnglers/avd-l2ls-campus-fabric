@@ -7,6 +7,7 @@
 - Linux Host
   - Docker and Containerlab installed
   - 8 vCPUs and 32GB RAM (recommended)
+  - AVD installed - docs [here](https://avd.sh/en/stable/docs/installation/collection-installation.html) - install the latest devel branch
   - 4.28.3M cEOS imported to Docker
     - you can use a different version by updating image name in campus-l2ls.yml containerlab topology file.
 
@@ -72,7 +73,7 @@ make deploy
 Example to connect to a switch with docker exec command.
 
 ``` bash
-docker exec -it SPINE1 Cli
+sudo docker exec -it SPINE1 Cli
 ```
 
 ## Update Leaf Port Configs
@@ -109,7 +110,7 @@ interface Ethernet1
    spanning-tree bpduguard enable
 ```
 
-- Uncomment network_ports: section in DC1_NETWORK_PORTS.yml
+- Uncomment network_ports: section in **group_vars/CAMPUS_NETWORK_PORTS.yml**
 - run `make build` again
 - show intended/configs
 
