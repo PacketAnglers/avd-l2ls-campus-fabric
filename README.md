@@ -75,7 +75,7 @@ Example to connect to a switch with docker exec command.
 docker exec -it SPINE1 Cli
 ```
 
-## Add 802.1x Port Configs
+## Update Leaf Port Configs
 
 Add individual 802.1x port configuration to the LEAF switches.
 
