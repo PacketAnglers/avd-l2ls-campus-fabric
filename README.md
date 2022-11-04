@@ -10,6 +10,8 @@
   - 4.28.3M cEOS imported to Docker
     - you can use a different version by updating image name in campus-l2ls.yml containerlab topology file.
 
+> To import cEOS image into docker `docker import cEOS-lab-4.27.3F.tar ceos:4.27.3F`
+
 ## Documentation
 
 [Campus Fabric Example](https://avd.sh/en/devel/examples/campus-fabric/index.html)
