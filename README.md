@@ -41,6 +41,10 @@ You should see something like this:
 +----+--------+--------------+--------------+------+---------+--------------------+--------------+
 ```
 
+## Review group_vars
+
+Review the content of the individual `group_vars` files.
+
 ## Build Configs
 
 ``` bash

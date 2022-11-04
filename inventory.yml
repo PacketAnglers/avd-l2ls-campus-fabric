@@ -1,15 +1,15 @@
 # inventory.yml
-DC1:
+CAMPUS:
   children:
-    DC1_FABRIC:
+    CAMPUS_FABRIC:
       children:
-        DC1_SPINES:
+        CAMPUS_SPINES:
           hosts:
             SPINE1:
               ansible_host: 172.100.100.101
             SPINE2:
               ansible_host: 172.100.100.102
-        DC1_LEAFS:
+        CAMPUS_LEAFS:
           hosts:
             LEAF1A:
               ansible_host: 172.100.100.103
@@ -27,11 +27,11 @@ DC1:
               ansible_host: 172.100.100.109
             LEAF3E:
               ansible_host: 172.100.100.110
-    DC1_NETWORK_SERVICES:
+    CAMPUS_NETWORK_SERVICES:
       children:
-        DC1_LEAFS:
-        DC1_SPINES:
-    DC1_NETWORK_PORTS:
+        CAMPUS_LEAFS:
+        CAMPUS_SPINES:
+    CAMPUS_NETWORK_PORTS:
       children:
-        DC1_LEAFS:
-        DC1_SPINES:
+        CAMPUS_LEAFS:
+        CAMPUS_SPINES:

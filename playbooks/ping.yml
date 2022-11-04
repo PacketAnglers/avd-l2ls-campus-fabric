@@ -1,7 +1,7 @@
 
 ---
 - name: Test Connectivity to Lab Nodes
-  hosts: DC1_FABRIC
+  hosts: CAMPUS_FABRIC
   connection: local
   gather_facts: false
 
