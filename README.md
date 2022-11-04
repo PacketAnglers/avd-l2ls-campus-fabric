@@ -8,6 +8,10 @@
   - Docker and Containerlab installed
   - 8 vCPUs and 32GB RAM (recommended)
 
+## Documentation
+
+[Campus Fabric Example](https://avd.sh/en/devel/examples/campus-fabric/index.html)
+
 ## Clone Repo
 
 ``` bash
