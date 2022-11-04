@@ -7,6 +7,8 @@
 - Linux Host
   - Docker and Containerlab installed
   - 8 vCPUs and 32GB RAM (recommended)
+  - 4.28.3M cEOS imported to Docker
+    - you can use a different version by updating image name in campus-l2ls.yml containerlab topology file.
 
 ## Documentation
 
