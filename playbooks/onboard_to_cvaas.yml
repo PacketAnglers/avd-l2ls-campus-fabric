@@ -1,0 +1,40 @@
+# aaa authorization exec default local, username must be priv 15  -  configured on switch
+---
+- name: CVaaS onboarding tasks
+  hosts: CAMPUS_FABRIC
+  gather_facts: false
+  connection: network_cli
+
+  vars:
+    ansible_connection: network_cli
+  vars_files:
+    - "{{ inventory_dir }}/group_vars/CVAAS/cvaas_onboarding_token.yml"
+
+  tasks:
+  - name: Create token file
+    copy:
+      dest: /tmp/cv-onboarding-token
+      content: "{{ cvaas_onboarding_token }}"
+    run_once: true
+
+  - name: Copy token file to {{ inventory_hostname }}
+    ansible.netcommon.net_put:
+      src: /tmp/cv-onboarding-token
+      protocol: sftp
+      dest: /tmp/cv-onboarding-token
+
+  - name: Configure TerminAttr daemon
+    arista.eos.eos_config:
+      src: ../templates/terminattr.j2
+
+  - name: Disable TerminAttr daemon
+    arista.eos.eos_config:
+      lines:
+          - shutdown
+      parents: daemon TerminAttr
+
+  - name: Enable TerminAttr daemon
+    arista.eos.eos_config:
+      lines:
+          - no shutdown
+      parents: daemon TerminAttr

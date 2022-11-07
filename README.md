@@ -74,7 +74,35 @@ ansible-playbook playbooks/build.yml
 
 > View the configs and docs generated.  `intended/configs` and `documentation/devices`.
 
-## Deploy Configs - eAPI
+## Deploy Configurations - 2 Methods
+
+### Deploy via CVaaS
+
+- Register Devices to www.cv-staging.corp.arista.io
+
+> Update registration token file in `group_vars/CVAAS` if needed.
+
+``` bash
+make onboard-lab
+
+# or
+
+ansible-playbook playbooks/onboard_to_cvaas.yml
+```
+
+- Deploy Configurations via CVaaS
+
+``` bash
+make deploy-cvaas
+
+# or
+
+ansible-playbook playbooks/deploy-cvaas.yml
+```
+
+Finish by building a Change Control in CVaaS to execute tasks.
+
+### Deploy via eAPI
 
 ``` bash
 make deploy

@@ -11,8 +11,16 @@ build: ## Build Configs
 	ansible-playbook playbooks/build.yml
 
 .PHONY: deploy
-deploy: ## Deploy Configs
+deploy: ## Deploy Configs via eAPI (direct)
 	ansible-playbook playbooks/deploy.yml
+
+.PHONY: deploy-cvaas
+deploy-cvaas: ## Deploy Configs via CVaaS
+	ansible-playbook playbooks/deploy-cvaas.yml
+
+.PHONY: onboard-lab
+onboard-lab: ## Onboard Lab Devices to CVaaS
+	ansible-playbook playbooks/onboard_to_cvaas.yml
 
 .PHONY: ping
 ping: ## Test Connectivity

@@ -1,0 +1,18 @@
+---
+# deploy.yml
+
+- name: Deploying Changes via CVaaS
+  hosts: cvaas
+  connection: local
+  tasks:
+
+    - name: run CVP provisioning
+      tags: [cvaas_deploy]
+      import_role:
+         name: arista.avd.eos_config_deploy_cvp
+      vars:
+        container_root: 'CAMPUS_FABRIC'
+        configlets_prefix: 'AVD_CAMPUS'
+        device_filter: ''
+        state: present
+        # execute_tasks: true

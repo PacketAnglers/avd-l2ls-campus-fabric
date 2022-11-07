@@ -1,0 +1,69 @@
+---
+CVP_DEVICES:
+  LEAF1A:
+    name: LEAF1A
+    parentContainerName: CAMPUS_LEAFS
+    configlets:
+      - AVD_CAMPUS_LEAF1A
+    imageBundle: []
+  LEAF1B:
+    name: LEAF1B
+    parentContainerName: CAMPUS_LEAFS
+    configlets:
+      - AVD_CAMPUS_LEAF1B
+    imageBundle: []
+  LEAF2A:
+    name: LEAF2A
+    parentContainerName: CAMPUS_LEAFS
+    configlets:
+      - AVD_CAMPUS_LEAF2A
+    imageBundle: []
+  LEAF3A:
+    name: LEAF3A
+    parentContainerName: CAMPUS_LEAFS
+    configlets:
+      - AVD_CAMPUS_LEAF3A
+    imageBundle: []
+  LEAF3B:
+    name: LEAF3B
+    parentContainerName: CAMPUS_LEAFS
+    configlets:
+      - AVD_CAMPUS_LEAF3B
+    imageBundle: []
+  LEAF3C:
+    name: LEAF3C
+    parentContainerName: CAMPUS_LEAFS
+    configlets:
+      - AVD_CAMPUS_LEAF3C
+    imageBundle: []
+  LEAF3D:
+    name: LEAF3D
+    parentContainerName: CAMPUS_LEAFS
+    configlets:
+      - AVD_CAMPUS_LEAF3D
+    imageBundle: []
+  LEAF3E:
+    name: LEAF3E
+    parentContainerName: CAMPUS_LEAFS
+    configlets:
+      - AVD_CAMPUS_LEAF3E
+    imageBundle: []
+  SPINE1:
+    name: SPINE1
+    parentContainerName: CAMPUS_SPINES
+    configlets:
+      - AVD_CAMPUS_SPINE1
+    imageBundle: []
+  SPINE2:
+    name: SPINE2
+    parentContainerName: CAMPUS_SPINES
+    configlets:
+      - AVD_CAMPUS_SPINE2
+    imageBundle: []
+CVP_CONTAINERS:
+  CAMPUS_FABRIC:
+    parent_container: Tenant
+  CAMPUS_LEAFS:
+    parent_container: CAMPUS_FABRIC
+  CAMPUS_SPINES:
+    parent_container: CAMPUS_FABRIC

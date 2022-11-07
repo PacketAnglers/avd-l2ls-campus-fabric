@@ -1,6 +1,9 @@
 # inventory.yml
 CAMPUS:
   children:
+    CVAAS:
+      hosts:
+        cvaas:
     CAMPUS_FABRIC:
       children:
         CAMPUS_SPINES:

@@ -29,3 +29,18 @@ ntp:
       vrf: MGMT
     - name: pool.ntp.org
       vrf: MGMT
+
+
+###################### --- TerminAttr --- ######################
+
+daemon_terminattr:
+  cvaddrs:
+    - apiserver.cv-staging.corp.arista.io:443
+  cvauth:
+    method: "token-secure"
+    key: "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhc2V0SUQiOjE5NTc1NCwiZXhwIjoxNjcwNDIyODU4LCJraWQiOiJlNjk1Mjc2YTI2ZTIyYWU2IiwibmJmIjoxNjY3ODMwODU4LCJyZWVucm9sbERldmljZXMiOlsiKiJdfQ.E6-CeceI1Y8zZW9ymhHHLezlrKK-DRUOzhQFEKvB7vKAHOE4v4fdYbwWE1m5gFJSW60Y99PtSaPCS3ZlIjnqTL2JOdkElV7vevioj-ZT1ECqa8bjCXMgwhIjiUSixrT4GBHV-bU4xp1UsQlxlGuliT1RUesTgc7VtrdgJ2bD3l8JQo8v2-HyUEePyaN7lr4-IXpIUVQMsutNmZ4anS9-xDw89xUo3Do9jwbbEWIqeCVuoea0ZIvX6JNXO1B4sp6toCWjm3DzbpCGtvZzhJmTEVG2tp8KtNO6JGWGn8z1tMoJqYRrCuVLd35PUw2QQYU15ddGrl9EA8NG05Sy5iWnTJ18HQeZ9FTyTXSh40QwkNq9bSPl4JgXW777_pBlRkKYbkK9r0vokBeRxFYaAozZhjWT9EimW2VWDN9GMdjqpnvAjY0TydjQs6yP5rVzNyYbF3ccDMLHkul6TB8q-_XkUdc3WK1LyRGLihj4iqdl0kd5Clx2Fben4j7x2UuXjoCDRRBJRGADFEP7XpRDvG4KtoPKP9keJODsmJb5iaI8qv-D6Q32hWVCMqfwn2Z5lQ7IVNc1vR70jXJA93vNcJcl2NH7qJolyMxJtcMdTL0eZnq1W9BtHhl2157tQE_JmQ7VZCETiA1Ao95pExHlAkAQvdKiNfjeulXN7vZHiLUIRvE"
+    token_file: "/tmp/cv-onboarding-token"
+  cvvrf: MGMT
+  disable_aaa: true
+  ingestexclude: "/Sysdb/cell/1/agent,/Sysdb/cell/2/agent"
+  smashexcludes: "ale,flexCounter,hardware,kni,pulse,strata"

@@ -1,0 +1,411 @@
+CVP_CONFIGLETS:
+  AVD_CAMPUS_LEAF1A: "!RANCID-CONTENT-TYPE: arista\n!\ndaemon TerminAttr\n   exec\
+    \ /usr/bin/TerminAttr -cvaddr=apiserver.cv-staging.corp.arista.io:443 -cvauth=token-secure,/tmp/cv-onboarding-token\
+    \ -cvvrf=MGMT -disableaaa -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata\
+    \ -ingestexclude=/Sysdb/cell/1/agent,/Sysdb/cell/2/agent -taillogs\n   no shutdown\n\
+    !\nvlan internal order ascending range 1006 1199\n!\ntransceiver qsfp default-mode\
+    \ 4x10G\n!\nservice routing protocols model multi-agent\n!\nhostname LEAF1A\n\
+    ip name-server vrf MGMT 8.8.4.4\nip name-server vrf MGMT 8.8.8.8\n!\nntp server\
+    \ vrf MGMT pool.ntp.org\nntp server vrf MGMT time.google.com prefer\n!\nspanning-tree\
+    \ mode mstp\nno spanning-tree vlan-id 4094\nspanning-tree mst 0 priority 16384\n\
+    !\naaa authorization exec default local\n!\nno enable password\nno aaa root\n\
+    !\nusername admin privilege 15 role network-admin secret sha512 $6$zMFtJNDCdXNd5rQ9$2.P8pfwopGK6NmRYubumSRhgT.ee6vcqaDfvN9VFyFIGhewx3uAVxE4n.M8wvlN3SSkjYtRLO8XLklr5R/nAg/\n\
+    !\nvlan 10\n   name L2LEAF_INBAND_MGMT\n!\nvlan 110\n   name IDF1-Data\n!\nvlan\
+    \ 120\n   name IDF1-Voice\n!\nvlan 130\n   name IDF1-Guest\n!\nvlan 4094\n   name\
+    \ MLAG_PEER\n   trunk group MLAG\n!\nvrf instance MGMT\n!\ninterface Port-Channel51\n\
+    \   description SPINES_Po1\n   no shutdown\n   switchport\n   switchport trunk\
+    \ allowed vlan 10,110,120,130\n   switchport mode trunk\n   mlag 51\n!\ninterface\
+    \ Port-Channel53\n   description MLAG_PEER_LEAF1B_Po53\n   no shutdown\n   switchport\n\
+    \   switchport trunk allowed vlan 2-4094\n   switchport mode trunk\n   switchport\
+    \ trunk group MLAG\n!\ninterface Ethernet51\n   description SPINE1_Ethernet1\n\
+    \   no shutdown\n   channel-group 51 mode active\n!\ninterface Ethernet53\n  \
+    \ description MLAG_PEER_LEAF1B_Ethernet53\n   no shutdown\n   channel-group 53\
+    \ mode active\n!\ninterface Ethernet54\n   description MLAG_PEER_LEAF1B_Ethernet54\n\
+    \   no shutdown\n   channel-group 53 mode active\n!\ninterface Management0\n \
+    \  description oob_management\n   no shutdown\n   vrf MGMT\n   ip address 172.100.100.103/24\n\
+    !\ninterface Vlan10\n   description L2LEAF_INBAND_MGMT\n   no shutdown\n   mtu\
+    \ 1500\n   ip address 10.10.10.6/24\n!\ninterface Vlan4094\n   description MLAG_PEER\n\
+    \   no shutdown\n   mtu 1500\n   no autostate\n   ip address 192.168.0.4/31\n\
+    !\nip routing\nno ip routing vrf MGMT\n!\nmlag configuration\n   domain-id IDF1\n\
+    \   local-interface Vlan4094\n   peer-address 192.168.0.5\n   peer-link Port-Channel53\n\
+    \   reload-delay mlag 300\n   reload-delay non-mlag 330\n!\nip route vrf MGMT\
+    \ 0.0.0.0/0 172.100.100.1\nip route 0.0.0.0/0 10.10.10.1\n!\nmanagement api http-commands\n\
+    \   protocol https\n   no shutdown\n   !\n   vrf MGMT\n      no shutdown\n!\n\
+    end\n"
+  AVD_CAMPUS_LEAF1B: "!RANCID-CONTENT-TYPE: arista\n!\ndaemon TerminAttr\n   exec\
+    \ /usr/bin/TerminAttr -cvaddr=apiserver.cv-staging.corp.arista.io:443 -cvauth=token-secure,/tmp/cv-onboarding-token\
+    \ -cvvrf=MGMT -disableaaa -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata\
+    \ -ingestexclude=/Sysdb/cell/1/agent,/Sysdb/cell/2/agent -taillogs\n   no shutdown\n\
+    !\nvlan internal order ascending range 1006 1199\n!\ntransceiver qsfp default-mode\
+    \ 4x10G\n!\nservice routing protocols model multi-agent\n!\nhostname LEAF1B\n\
+    ip name-server vrf MGMT 8.8.4.4\nip name-server vrf MGMT 8.8.8.8\n!\nntp server\
+    \ vrf MGMT pool.ntp.org\nntp server vrf MGMT time.google.com prefer\n!\nspanning-tree\
+    \ mode mstp\nno spanning-tree vlan-id 4094\nspanning-tree mst 0 priority 16384\n\
+    !\naaa authorization exec default local\n!\nno enable password\nno aaa root\n\
+    !\nusername admin privilege 15 role network-admin secret sha512 $6$zMFtJNDCdXNd5rQ9$2.P8pfwopGK6NmRYubumSRhgT.ee6vcqaDfvN9VFyFIGhewx3uAVxE4n.M8wvlN3SSkjYtRLO8XLklr5R/nAg/\n\
+    !\nvlan 10\n   name L2LEAF_INBAND_MGMT\n!\nvlan 110\n   name IDF1-Data\n!\nvlan\
+    \ 120\n   name IDF1-Voice\n!\nvlan 130\n   name IDF1-Guest\n!\nvlan 4094\n   name\
+    \ MLAG_PEER\n   trunk group MLAG\n!\nvrf instance MGMT\n!\ninterface Port-Channel51\n\
+    \   description SPINES_Po1\n   no shutdown\n   switchport\n   switchport trunk\
+    \ allowed vlan 10,110,120,130\n   switchport mode trunk\n   mlag 51\n!\ninterface\
+    \ Port-Channel53\n   description MLAG_PEER_LEAF1A_Po53\n   no shutdown\n   switchport\n\
+    \   switchport trunk allowed vlan 2-4094\n   switchport mode trunk\n   switchport\
+    \ trunk group MLAG\n!\ninterface Ethernet51\n   description SPINE2_Ethernet1\n\
+    \   no shutdown\n   channel-group 51 mode active\n!\ninterface Ethernet53\n  \
+    \ description MLAG_PEER_LEAF1A_Ethernet53\n   no shutdown\n   channel-group 53\
+    \ mode active\n!\ninterface Ethernet54\n   description MLAG_PEER_LEAF1A_Ethernet54\n\
+    \   no shutdown\n   channel-group 53 mode active\n!\ninterface Management0\n \
+    \  description oob_management\n   no shutdown\n   vrf MGMT\n   ip address 172.100.100.104/24\n\
+    !\ninterface Vlan10\n   description L2LEAF_INBAND_MGMT\n   no shutdown\n   mtu\
+    \ 1500\n   ip address 10.10.10.7/24\n!\ninterface Vlan4094\n   description MLAG_PEER\n\
+    \   no shutdown\n   mtu 1500\n   no autostate\n   ip address 192.168.0.5/31\n\
+    !\nip routing\nno ip routing vrf MGMT\n!\nmlag configuration\n   domain-id IDF1\n\
+    \   local-interface Vlan4094\n   peer-address 192.168.0.4\n   peer-link Port-Channel53\n\
+    \   reload-delay mlag 300\n   reload-delay non-mlag 330\n!\nip route vrf MGMT\
+    \ 0.0.0.0/0 172.100.100.1\nip route 0.0.0.0/0 10.10.10.1\n!\nmanagement api http-commands\n\
+    \   protocol https\n   no shutdown\n   !\n   vrf MGMT\n      no shutdown\n!\n\
+    end\n"
+  AVD_CAMPUS_LEAF2A: "!RANCID-CONTENT-TYPE: arista\n!\ndaemon TerminAttr\n   exec\
+    \ /usr/bin/TerminAttr -cvaddr=apiserver.cv-staging.corp.arista.io:443 -cvauth=token-secure,/tmp/cv-onboarding-token\
+    \ -cvvrf=MGMT -disableaaa -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata\
+    \ -ingestexclude=/Sysdb/cell/1/agent,/Sysdb/cell/2/agent -taillogs\n   no shutdown\n\
+    !\nvlan internal order ascending range 1006 1199\n!\ntransceiver qsfp default-mode\
+    \ 4x10G\n!\nservice routing protocols model multi-agent\n!\nhostname LEAF2A\n\
+    ip name-server vrf MGMT 8.8.4.4\nip name-server vrf MGMT 8.8.8.8\n!\nntp server\
+    \ vrf MGMT pool.ntp.org\nntp server vrf MGMT time.google.com prefer\n!\nspanning-tree\
+    \ mode mstp\nspanning-tree mst 0 priority 16384\n!\naaa authorization exec default\
+    \ local\n!\nno enable password\nno aaa root\n!\nusername admin privilege 15 role\
+    \ network-admin secret sha512 $6$zMFtJNDCdXNd5rQ9$2.P8pfwopGK6NmRYubumSRhgT.ee6vcqaDfvN9VFyFIGhewx3uAVxE4n.M8wvlN3SSkjYtRLO8XLklr5R/nAg/\n\
+    !\nvlan 10\n   name L2LEAF_INBAND_MGMT\n!\nvlan 210\n   name IDF2-Data\n!\nvlan\
+    \ 220\n   name IDF2-Voice\n!\nvlan 230\n   name IDF2-Guest\n!\nvrf instance MGMT\n\
+    !\ninterface Port-Channel11\n   description SPINES_Po491\n   no shutdown\n   switchport\n\
+    \   switchport trunk allowed vlan 10,210,220,230\n   switchport mode trunk\n!\n\
+    interface Ethernet1/1\n   description SPINE1_Ethernet49/1\n   no shutdown\n  \
+    \ channel-group 11 mode active\n!\ninterface Ethernet1/3\n   description SPINE2_Ethernet49/1\n\
+    \   no shutdown\n   channel-group 11 mode active\n!\ninterface Management0\n \
+    \  description oob_management\n   no shutdown\n   vrf MGMT\n   ip address 172.100.100.105/24\n\
+    !\ninterface Vlan10\n   description L2LEAF_INBAND_MGMT\n   no shutdown\n   mtu\
+    \ 1500\n   ip address 10.10.10.8/24\n!\nip routing\nno ip routing vrf MGMT\n!\n\
+    ip route vrf MGMT 0.0.0.0/0 172.100.100.1\nip route 0.0.0.0/0 10.10.10.1\n!\n\
+    management api http-commands\n   protocol https\n   no shutdown\n   !\n   vrf\
+    \ MGMT\n      no shutdown\n!\nend\n"
+  AVD_CAMPUS_LEAF3A: "!RANCID-CONTENT-TYPE: arista\n!\ndaemon TerminAttr\n   exec\
+    \ /usr/bin/TerminAttr -cvaddr=apiserver.cv-staging.corp.arista.io:443 -cvauth=token-secure,/tmp/cv-onboarding-token\
+    \ -cvvrf=MGMT -disableaaa -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata\
+    \ -ingestexclude=/Sysdb/cell/1/agent,/Sysdb/cell/2/agent -taillogs\n   no shutdown\n\
+    !\nvlan internal order ascending range 1006 1199\n!\ntransceiver qsfp default-mode\
+    \ 4x10G\n!\nservice routing protocols model multi-agent\n!\nhostname LEAF3A\n\
+    ip name-server vrf MGMT 8.8.4.4\nip name-server vrf MGMT 8.8.8.8\n!\nntp server\
+    \ vrf MGMT pool.ntp.org\nntp server vrf MGMT time.google.com prefer\n!\nspanning-tree\
+    \ mode mstp\nno spanning-tree vlan-id 4094\nspanning-tree mst 0 priority 16384\n\
+    !\naaa authorization exec default local\n!\nno enable password\nno aaa root\n\
+    !\nusername admin privilege 15 role network-admin secret sha512 $6$zMFtJNDCdXNd5rQ9$2.P8pfwopGK6NmRYubumSRhgT.ee6vcqaDfvN9VFyFIGhewx3uAVxE4n.M8wvlN3SSkjYtRLO8XLklr5R/nAg/\n\
+    !\nvlan 10\n   name L2LEAF_INBAND_MGMT\n!\nvlan 310\n   name IDF3-Data\n!\nvlan\
+    \ 320\n   name IDF3-Voice\n!\nvlan 330\n   name IDF3-Guest\n!\nvlan 4094\n   name\
+    \ MLAG_PEER\n   trunk group MLAG\n!\nvrf instance MGMT\n!\ninterface Port-Channel971\n\
+    \   description SPINES_Po501\n   no shutdown\n   switchport\n   switchport trunk\
+    \ allowed vlan 10,310,320,330\n   switchport mode trunk\n   mlag 971\n!\ninterface\
+    \ Port-Channel973\n   description LEAF3C_Po971\n   no shutdown\n   switchport\n\
+    \   switchport trunk allowed vlan 10,310,320,330\n   switchport mode trunk\n \
+    \  mlag 973\n!\ninterface Port-Channel974\n   description LEAF3D_Po971\n   no\
+    \ shutdown\n   switchport\n   switchport trunk allowed vlan 10,310,320,330\n \
+    \  switchport mode trunk\n   mlag 974\n!\ninterface Port-Channel981\n   description\
+    \ LEAF3E_Po971\n   no shutdown\n   switchport\n   switchport trunk allowed vlan\
+    \ 10,310,320,330\n   switchport mode trunk\n   mlag 981\n!\ninterface Port-Channel983\n\
+    \   description MLAG_PEER_LEAF3B_Po983\n   no shutdown\n   switchport\n   switchport\
+    \ trunk allowed vlan 2-4094\n   switchport mode trunk\n   switchport trunk group\
+    \ MLAG\n!\ninterface Ethernet97/1\n   description SPINE1_Ethernet50/1\n   no shutdown\n\
+    \   channel-group 971 mode active\n!\ninterface Ethernet97/2\n   description SPINE2_Ethernet50/1\n\
+    \   no shutdown\n   channel-group 971 mode active\n!\ninterface Ethernet97/3\n\
+    \   description LEAF3C_Ethernet97/1\n   no shutdown\n   channel-group 973 mode\
+    \ active\n!\ninterface Ethernet97/4\n   description LEAF3D_Ethernet97/1\n   no\
+    \ shutdown\n   channel-group 974 mode active\n!\ninterface Ethernet98/1\n   description\
+    \ LEAF3E_Ethernet97/1\n   no shutdown\n   channel-group 981 mode active\n!\ninterface\
+    \ Ethernet98/3\n   description MLAG_PEER_LEAF3B_Ethernet98/3\n   no shutdown\n\
+    \   channel-group 983 mode active\n!\ninterface Ethernet98/4\n   description MLAG_PEER_LEAF3B_Ethernet98/4\n\
+    \   no shutdown\n   channel-group 983 mode active\n!\ninterface Management0\n\
+    \   description oob_management\n   no shutdown\n   vrf MGMT\n   ip address 172.100.100.106/24\n\
+    !\ninterface Vlan10\n   description L2LEAF_INBAND_MGMT\n   no shutdown\n   mtu\
+    \ 1500\n   ip address 10.10.10.9/24\n!\ninterface Vlan4094\n   description MLAG_PEER\n\
+    \   no shutdown\n   mtu 1500\n   no autostate\n   ip address 192.168.0.10/31\n\
+    !\nip routing\nno ip routing vrf MGMT\n!\nmlag configuration\n   domain-id IDF3_AGG\n\
+    \   local-interface Vlan4094\n   peer-address 192.168.0.11\n   peer-link Port-Channel983\n\
+    \   reload-delay mlag 300\n   reload-delay non-mlag 330\n!\nip route vrf MGMT\
+    \ 0.0.0.0/0 172.100.100.1\nip route 0.0.0.0/0 10.10.10.1\n!\nmanagement api http-commands\n\
+    \   protocol https\n   no shutdown\n   !\n   vrf MGMT\n      no shutdown\n!\n\
+    end\n"
+  AVD_CAMPUS_LEAF3B: "!RANCID-CONTENT-TYPE: arista\n!\ndaemon TerminAttr\n   exec\
+    \ /usr/bin/TerminAttr -cvaddr=apiserver.cv-staging.corp.arista.io:443 -cvauth=token-secure,/tmp/cv-onboarding-token\
+    \ -cvvrf=MGMT -disableaaa -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata\
+    \ -ingestexclude=/Sysdb/cell/1/agent,/Sysdb/cell/2/agent -taillogs\n   no shutdown\n\
+    !\nvlan internal order ascending range 1006 1199\n!\ntransceiver qsfp default-mode\
+    \ 4x10G\n!\nservice routing protocols model multi-agent\n!\nhostname LEAF3B\n\
+    ip name-server vrf MGMT 8.8.4.4\nip name-server vrf MGMT 8.8.8.8\n!\nntp server\
+    \ vrf MGMT pool.ntp.org\nntp server vrf MGMT time.google.com prefer\n!\nspanning-tree\
+    \ mode mstp\nno spanning-tree vlan-id 4094\nspanning-tree mst 0 priority 16384\n\
+    !\naaa authorization exec default local\n!\nno enable password\nno aaa root\n\
+    !\nusername admin privilege 15 role network-admin secret sha512 $6$zMFtJNDCdXNd5rQ9$2.P8pfwopGK6NmRYubumSRhgT.ee6vcqaDfvN9VFyFIGhewx3uAVxE4n.M8wvlN3SSkjYtRLO8XLklr5R/nAg/\n\
+    !\nvlan 10\n   name L2LEAF_INBAND_MGMT\n!\nvlan 310\n   name IDF3-Data\n!\nvlan\
+    \ 320\n   name IDF3-Voice\n!\nvlan 330\n   name IDF3-Guest\n!\nvlan 4094\n   name\
+    \ MLAG_PEER\n   trunk group MLAG\n!\nvrf instance MGMT\n!\ninterface Port-Channel971\n\
+    \   description SPINES_Po501\n   no shutdown\n   switchport\n   switchport trunk\
+    \ allowed vlan 10,310,320,330\n   switchport mode trunk\n   mlag 971\n!\ninterface\
+    \ Port-Channel973\n   description LEAF3C_Po971\n   no shutdown\n   switchport\n\
+    \   switchport trunk allowed vlan 10,310,320,330\n   switchport mode trunk\n \
+    \  mlag 973\n!\ninterface Port-Channel974\n   description LEAF3D_Po971\n   no\
+    \ shutdown\n   switchport\n   switchport trunk allowed vlan 10,310,320,330\n \
+    \  switchport mode trunk\n   mlag 974\n!\ninterface Port-Channel981\n   description\
+    \ LEAF3E_Po971\n   no shutdown\n   switchport\n   switchport trunk allowed vlan\
+    \ 10,310,320,330\n   switchport mode trunk\n   mlag 981\n!\ninterface Port-Channel983\n\
+    \   description MLAG_PEER_LEAF3A_Po983\n   no shutdown\n   switchport\n   switchport\
+    \ trunk allowed vlan 2-4094\n   switchport mode trunk\n   switchport trunk group\
+    \ MLAG\n!\ninterface Ethernet97/1\n   description SPINE1_Ethernet51/1\n   no shutdown\n\
+    \   channel-group 971 mode active\n!\ninterface Ethernet97/2\n   description SPINE2_Ethernet51/1\n\
+    \   no shutdown\n   channel-group 971 mode active\n!\ninterface Ethernet97/3\n\
+    \   description LEAF3C_Ethernet97/2\n   no shutdown\n   channel-group 973 mode\
+    \ active\n!\ninterface Ethernet97/4\n   description LEAF3D_Ethernet97/2\n   no\
+    \ shutdown\n   channel-group 974 mode active\n!\ninterface Ethernet98/1\n   description\
+    \ LEAF3E_Ethernet97/2\n   no shutdown\n   channel-group 981 mode active\n!\ninterface\
+    \ Ethernet98/3\n   description MLAG_PEER_LEAF3A_Ethernet98/3\n   no shutdown\n\
+    \   channel-group 983 mode active\n!\ninterface Ethernet98/4\n   description MLAG_PEER_LEAF3A_Ethernet98/4\n\
+    \   no shutdown\n   channel-group 983 mode active\n!\ninterface Management0\n\
+    \   description oob_management\n   no shutdown\n   vrf MGMT\n   ip address 172.100.100.107/24\n\
+    !\ninterface Vlan10\n   description L2LEAF_INBAND_MGMT\n   no shutdown\n   mtu\
+    \ 1500\n   ip address 10.10.10.10/24\n!\ninterface Vlan4094\n   description MLAG_PEER\n\
+    \   no shutdown\n   mtu 1500\n   no autostate\n   ip address 192.168.0.11/31\n\
+    !\nip routing\nno ip routing vrf MGMT\n!\nmlag configuration\n   domain-id IDF3_AGG\n\
+    \   local-interface Vlan4094\n   peer-address 192.168.0.10\n   peer-link Port-Channel983\n\
+    \   reload-delay mlag 300\n   reload-delay non-mlag 330\n!\nip route vrf MGMT\
+    \ 0.0.0.0/0 172.100.100.1\nip route 0.0.0.0/0 10.10.10.1\n!\nmanagement api http-commands\n\
+    \   protocol https\n   no shutdown\n   !\n   vrf MGMT\n      no shutdown\n!\n\
+    end\n"
+  AVD_CAMPUS_LEAF3C: "!RANCID-CONTENT-TYPE: arista\n!\ndaemon TerminAttr\n   exec\
+    \ /usr/bin/TerminAttr -cvaddr=apiserver.cv-staging.corp.arista.io:443 -cvauth=token-secure,/tmp/cv-onboarding-token\
+    \ -cvvrf=MGMT -disableaaa -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata\
+    \ -ingestexclude=/Sysdb/cell/1/agent,/Sysdb/cell/2/agent -taillogs\n   no shutdown\n\
+    !\nvlan internal order ascending range 1006 1199\n!\ntransceiver qsfp default-mode\
+    \ 4x10G\n!\nservice routing protocols model multi-agent\n!\nhostname LEAF3C\n\
+    ip name-server vrf MGMT 8.8.4.4\nip name-server vrf MGMT 8.8.8.8\n!\nntp server\
+    \ vrf MGMT pool.ntp.org\nntp server vrf MGMT time.google.com prefer\n!\nspanning-tree\
+    \ mode mstp\nspanning-tree mst 0 priority 16384\n!\naaa authorization exec default\
+    \ local\n!\nno enable password\nno aaa root\n!\nusername admin privilege 15 role\
+    \ network-admin secret sha512 $6$zMFtJNDCdXNd5rQ9$2.P8pfwopGK6NmRYubumSRhgT.ee6vcqaDfvN9VFyFIGhewx3uAVxE4n.M8wvlN3SSkjYtRLO8XLklr5R/nAg/\n\
+    !\nvlan 10\n   name L2LEAF_INBAND_MGMT\n!\nvlan 310\n   name IDF3-Data\n!\nvlan\
+    \ 320\n   name IDF3-Voice\n!\nvlan 330\n   name IDF3-Guest\n!\nvrf instance MGMT\n\
+    !\ninterface Port-Channel971\n   description IDF3_AGG_Po973\n   no shutdown\n\
+    \   switchport\n   switchport trunk allowed vlan 10,310,320,330\n   switchport\
+    \ mode trunk\n!\ninterface Ethernet97/1\n   description LEAF3A_Ethernet97/3\n\
+    \   no shutdown\n   channel-group 971 mode active\n!\ninterface Ethernet97/2\n\
+    \   description LEAF3B_Ethernet97/3\n   no shutdown\n   channel-group 971 mode\
+    \ active\n!\ninterface Management0\n   description oob_management\n   no shutdown\n\
+    \   vrf MGMT\n   ip address 172.100.100.108/24\n!\ninterface Vlan10\n   description\
+    \ L2LEAF_INBAND_MGMT\n   no shutdown\n   mtu 1500\n   ip address 10.10.10.11/24\n\
+    !\nip routing\nno ip routing vrf MGMT\n!\nip route vrf MGMT 0.0.0.0/0 172.100.100.1\n\
+    ip route 0.0.0.0/0 10.10.10.1\n!\nmanagement api http-commands\n   protocol https\n\
+    \   no shutdown\n   !\n   vrf MGMT\n      no shutdown\n!\nend\n"
+  AVD_CAMPUS_LEAF3D: "!RANCID-CONTENT-TYPE: arista\n!\ndaemon TerminAttr\n   exec\
+    \ /usr/bin/TerminAttr -cvaddr=apiserver.cv-staging.corp.arista.io:443 -cvauth=token-secure,/tmp/cv-onboarding-token\
+    \ -cvvrf=MGMT -disableaaa -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata\
+    \ -ingestexclude=/Sysdb/cell/1/agent,/Sysdb/cell/2/agent -taillogs\n   no shutdown\n\
+    !\nvlan internal order ascending range 1006 1199\n!\ntransceiver qsfp default-mode\
+    \ 4x10G\n!\nservice routing protocols model multi-agent\n!\nhostname LEAF3D\n\
+    ip name-server vrf MGMT 8.8.4.4\nip name-server vrf MGMT 8.8.8.8\n!\nntp server\
+    \ vrf MGMT pool.ntp.org\nntp server vrf MGMT time.google.com prefer\n!\nspanning-tree\
+    \ mode mstp\nspanning-tree mst 0 priority 16384\n!\naaa authorization exec default\
+    \ local\n!\nno enable password\nno aaa root\n!\nusername admin privilege 15 role\
+    \ network-admin secret sha512 $6$zMFtJNDCdXNd5rQ9$2.P8pfwopGK6NmRYubumSRhgT.ee6vcqaDfvN9VFyFIGhewx3uAVxE4n.M8wvlN3SSkjYtRLO8XLklr5R/nAg/\n\
+    !\nvlan 10\n   name L2LEAF_INBAND_MGMT\n!\nvlan 310\n   name IDF3-Data\n!\nvlan\
+    \ 320\n   name IDF3-Voice\n!\nvlan 330\n   name IDF3-Guest\n!\nvrf instance MGMT\n\
+    !\ninterface Port-Channel971\n   description IDF3_AGG_Po974\n   no shutdown\n\
+    \   switchport\n   switchport trunk allowed vlan 10,310,320,330\n   switchport\
+    \ mode trunk\n!\ninterface Ethernet97/1\n   description LEAF3A_Ethernet97/4\n\
+    \   no shutdown\n   channel-group 971 mode active\n!\ninterface Ethernet97/2\n\
+    \   description LEAF3B_Ethernet97/4\n   no shutdown\n   channel-group 971 mode\
+    \ active\n!\ninterface Management0\n   description oob_management\n   no shutdown\n\
+    \   vrf MGMT\n   ip address 172.100.100.109/24\n!\ninterface Vlan10\n   description\
+    \ L2LEAF_INBAND_MGMT\n   no shutdown\n   mtu 1500\n   ip address 10.10.10.12/24\n\
+    !\nip routing\nno ip routing vrf MGMT\n!\nip route vrf MGMT 0.0.0.0/0 172.100.100.1\n\
+    ip route 0.0.0.0/0 10.10.10.1\n!\nmanagement api http-commands\n   protocol https\n\
+    \   no shutdown\n   !\n   vrf MGMT\n      no shutdown\n!\nend\n"
+  AVD_CAMPUS_LEAF3E: "!RANCID-CONTENT-TYPE: arista\n!\ndaemon TerminAttr\n   exec\
+    \ /usr/bin/TerminAttr -cvaddr=apiserver.cv-staging.corp.arista.io:443 -cvauth=token-secure,/tmp/cv-onboarding-token\
+    \ -cvvrf=MGMT -disableaaa -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata\
+    \ -ingestexclude=/Sysdb/cell/1/agent,/Sysdb/cell/2/agent -taillogs\n   no shutdown\n\
+    !\nvlan internal order ascending range 1006 1199\n!\ntransceiver qsfp default-mode\
+    \ 4x10G\n!\nservice routing protocols model multi-agent\n!\nhostname LEAF3E\n\
+    ip name-server vrf MGMT 8.8.4.4\nip name-server vrf MGMT 8.8.8.8\n!\nntp server\
+    \ vrf MGMT pool.ntp.org\nntp server vrf MGMT time.google.com prefer\n!\nspanning-tree\
+    \ mode mstp\nspanning-tree mst 0 priority 16384\n!\naaa authorization exec default\
+    \ local\n!\nno enable password\nno aaa root\n!\nusername admin privilege 15 role\
+    \ network-admin secret sha512 $6$zMFtJNDCdXNd5rQ9$2.P8pfwopGK6NmRYubumSRhgT.ee6vcqaDfvN9VFyFIGhewx3uAVxE4n.M8wvlN3SSkjYtRLO8XLklr5R/nAg/\n\
+    !\nvlan 10\n   name L2LEAF_INBAND_MGMT\n!\nvlan 310\n   name IDF3-Data\n!\nvlan\
+    \ 320\n   name IDF3-Voice\n!\nvlan 330\n   name IDF3-Guest\n!\nvrf instance MGMT\n\
+    !\ninterface Port-Channel971\n   description IDF3_AGG_Po981\n   no shutdown\n\
+    \   switchport\n   switchport trunk allowed vlan 10,310,320,330\n   switchport\
+    \ mode trunk\n!\ninterface Ethernet97/1\n   description LEAF3A_Ethernet98/1\n\
+    \   no shutdown\n   channel-group 971 mode active\n!\ninterface Ethernet97/2\n\
+    \   description LEAF3B_Ethernet98/1\n   no shutdown\n   channel-group 971 mode\
+    \ active\n!\ninterface Management0\n   description oob_management\n   no shutdown\n\
+    \   vrf MGMT\n   ip address 172.100.100.110/24\n!\ninterface Vlan10\n   description\
+    \ L2LEAF_INBAND_MGMT\n   no shutdown\n   mtu 1500\n   ip address 10.10.10.13/24\n\
+    !\nip routing\nno ip routing vrf MGMT\n!\nip route vrf MGMT 0.0.0.0/0 172.100.100.1\n\
+    ip route 0.0.0.0/0 10.10.10.1\n!\nmanagement api http-commands\n   protocol https\n\
+    \   no shutdown\n   !\n   vrf MGMT\n      no shutdown\n!\nend\n"
+  AVD_CAMPUS_SPINE1: "!RANCID-CONTENT-TYPE: arista\n!\ndaemon TerminAttr\n   exec\
+    \ /usr/bin/TerminAttr -cvaddr=apiserver.cv-staging.corp.arista.io:443 -cvauth=token-secure,/tmp/cv-onboarding-token\
+    \ -cvvrf=MGMT -disableaaa -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata\
+    \ -ingestexclude=/Sysdb/cell/1/agent,/Sysdb/cell/2/agent -taillogs\n   no shutdown\n\
+    !\nvlan internal order ascending range 1006 1199\n!\ntransceiver qsfp default-mode\
+    \ 4x10G\n!\nservice routing protocols model multi-agent\n!\nhostname SPINE1\n\
+    ip name-server vrf MGMT 8.8.4.4\nip name-server vrf MGMT 8.8.8.8\n!\nntp server\
+    \ vrf MGMT pool.ntp.org\nntp server vrf MGMT time.google.com prefer\n!\nspanning-tree\
+    \ mode mstp\nno spanning-tree vlan-id 4093-4094\nspanning-tree mst 0 priority\
+    \ 4096\n!\naaa authorization exec default local\n!\nno enable password\nno aaa\
+    \ root\n!\nusername admin privilege 15 role network-admin secret sha512 $6$zMFtJNDCdXNd5rQ9$2.P8pfwopGK6NmRYubumSRhgT.ee6vcqaDfvN9VFyFIGhewx3uAVxE4n.M8wvlN3SSkjYtRLO8XLklr5R/nAg/\n\
+    !\nvlan 10\n   name L2LEAF_INBAND_MGMT\n!\nvlan 110\n   name IDF1-Data\n!\nvlan\
+    \ 120\n   name IDF1-Voice\n!\nvlan 130\n   name IDF1-Guest\n!\nvlan 210\n   name\
+    \ IDF2-Data\n!\nvlan 220\n   name IDF2-Voice\n!\nvlan 230\n   name IDF2-Guest\n\
+    !\nvlan 310\n   name IDF3-Data\n!\nvlan 320\n   name IDF3-Voice\n!\nvlan 330\n\
+    \   name IDF3-Guest\n!\nvlan 4093\n   name LEAF_PEER_L3\n   trunk group LEAF_PEER_L3\n\
+    !\nvlan 4094\n   name MLAG_PEER\n   trunk group MLAG\n!\nvrf instance MGMT\n!\n\
+    interface Port-Channel1\n   description IDF1_Po51\n   no shutdown\n   switchport\n\
+    \   switchport trunk allowed vlan 10,110,120,130\n   switchport mode trunk\n \
+    \  mlag 1\n!\ninterface Port-Channel491\n   description LEAF2A_Po11\n   no shutdown\n\
+    \   switchport\n   switchport trunk allowed vlan 10,210,220,230\n   switchport\
+    \ mode trunk\n   mlag 491\n!\ninterface Port-Channel501\n   description IDF3_AGG_Po971\n\
+    \   no shutdown\n   switchport\n   switchport trunk allowed vlan 10,310,320,330\n\
+    \   switchport mode trunk\n   mlag 501\n!\ninterface Port-Channel551\n   description\
+    \ MLAG_PEER_SPINE2_Po551\n   no shutdown\n   switchport\n   switchport trunk allowed\
+    \ vlan 2-4094\n   switchport mode trunk\n   switchport trunk group LEAF_PEER_L3\n\
+    \   switchport trunk group MLAG\n!\ninterface Ethernet1\n   description LEAF1A_Ethernet51\n\
+    \   no shutdown\n   channel-group 1 mode active\n!\ninterface Ethernet49/1\n \
+    \  description LEAF2A_Ethernet1/1\n   no shutdown\n   channel-group 491 mode active\n\
+    !\ninterface Ethernet50/1\n   description LEAF3A_Ethernet97/1\n   no shutdown\n\
+    \   channel-group 501 mode active\n!\ninterface Ethernet51/1\n   description LEAF3B_Ethernet97/1\n\
+    \   no shutdown\n   channel-group 501 mode active\n!\ninterface Ethernet52/1\n\
+    \   description P2P_LINK_TO_WAN_Ethernet1/1\n   no shutdown\n   mtu 1500\n   no\
+    \ switchport\n   ip address 10.0.0.3/31\n   ip ospf network point-to-point\n \
+    \  ip ospf area 0.0.0.0\n!\ninterface Ethernet55/1\n   description MLAG_PEER_SPINE2_Ethernet55/1\n\
+    \   no shutdown\n   channel-group 551 mode active\n!\ninterface Ethernet56/1\n\
+    \   description MLAG_PEER_SPINE2_Ethernet56/1\n   no shutdown\n   channel-group\
+    \ 551 mode active\n!\ninterface Loopback0\n   no shutdown\n   ip address 172.16.1.1/32\n\
+    \   ip ospf area 0.0.0.0\n!\ninterface Management0\n   description oob_management\n\
+    \   no shutdown\n   vrf MGMT\n   ip address 172.100.100.101/24\n!\ninterface Vlan10\n\
+    \   description L2LEAF_INBAND_MGMT\n   no shutdown\n   mtu 1500\n   ip address\
+    \ 10.10.10.2/24\n   ip attached-host route export 19\n   ip virtual-router address\
+    \ 10.10.10.1\n!\ninterface Vlan110\n   description IDF1-Data\n   no shutdown\n\
+    \   ip address 10.1.10.2/23\n   ip virtual-router address 10.1.10.1\n!\ninterface\
+    \ Vlan120\n   description IDF1-Voice\n   no shutdown\n   ip address 10.1.20.2/23\n\
+    \   ip virtual-router address 10.1.20.1\n!\ninterface Vlan130\n   description\
+    \ IDF1-Guest\n   no shutdown\n   ip address 10.1.30.2/23\n   ip virtual-router\
+    \ address 10.1.30.1\n!\ninterface Vlan210\n   description IDF2-Data\n   no shutdown\n\
+    \   ip address 10.2.10.2/23\n   ip virtual-router address 10.2.10.1\n!\ninterface\
+    \ Vlan220\n   description IDF2-Voice\n   no shutdown\n   ip address 10.2.20.2/23\n\
+    \   ip virtual-router address 10.2.20.1\n!\ninterface Vlan230\n   description\
+    \ IDF2-Guest\n   no shutdown\n   ip address 10.2.30.2/23\n   ip virtual-router\
+    \ address 10.2.30.1\n!\ninterface Vlan310\n   description IDF3-Data\n   no shutdown\n\
+    \   ip address 10.3.10.2/23\n   ip virtual-router address 10.3.10.1\n!\ninterface\
+    \ Vlan320\n   description IDF3-Voice\n   no shutdown\n   ip address 10.3.20.2/23\n\
+    \   ip virtual-router address 10.3.20.1\n!\ninterface Vlan330\n   description\
+    \ IDF3-Guest\n   no shutdown\n   ip address 10.3.30.2/23\n   ip virtual-router\
+    \ address 10.3.30.1\n!\ninterface Vlan4093\n   description MLAG_PEER_L3_PEERING\n\
+    \   no shutdown\n   mtu 1500\n   ip address 10.1.1.0/31\n   ip ospf network point-to-point\n\
+    \   ip ospf area 0.0.0.0\n!\ninterface Vlan4094\n   description MLAG_PEER\n  \
+    \ no shutdown\n   mtu 1500\n   no autostate\n   ip address 192.168.0.0/31\n!\n\
+    ip virtual-router mac-address 00:1c:73:00:dc:01\n!\nip routing\nno ip routing\
+    \ vrf MGMT\n!\nmlag configuration\n   domain-id SPINES\n   local-interface Vlan4094\n\
+    \   peer-address 192.168.0.1\n   peer-link Port-Channel551\n   reload-delay mlag\
+    \ 300\n   reload-delay non-mlag 330\n!\nip route vrf MGMT 0.0.0.0/0 172.100.100.1\n\
+    !\nrouter ospf 100\n   router-id 172.16.1.1\n   passive-interface default\n  \
+    \ no passive-interface Vlan4093\n   no passive-interface Ethernet52/1\n   max-lsa\
+    \ 12000\n   redistribute connected\n!\nmanagement api http-commands\n   protocol\
+    \ https\n   no shutdown\n   !\n   vrf MGMT\n      no shutdown\n!\nend\n"
+  AVD_CAMPUS_SPINE2: "!RANCID-CONTENT-TYPE: arista\n!\ndaemon TerminAttr\n   exec\
+    \ /usr/bin/TerminAttr -cvaddr=apiserver.cv-staging.corp.arista.io:443 -cvauth=token-secure,/tmp/cv-onboarding-token\
+    \ -cvvrf=MGMT -disableaaa -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata\
+    \ -ingestexclude=/Sysdb/cell/1/agent,/Sysdb/cell/2/agent -taillogs\n   no shutdown\n\
+    !\nvlan internal order ascending range 1006 1199\n!\ntransceiver qsfp default-mode\
+    \ 4x10G\n!\nservice routing protocols model multi-agent\n!\nhostname SPINE2\n\
+    ip name-server vrf MGMT 8.8.4.4\nip name-server vrf MGMT 8.8.8.8\n!\nntp server\
+    \ vrf MGMT pool.ntp.org\nntp server vrf MGMT time.google.com prefer\n!\nspanning-tree\
+    \ mode mstp\nno spanning-tree vlan-id 4093-4094\nspanning-tree mst 0 priority\
+    \ 4096\n!\naaa authorization exec default local\n!\nno enable password\nno aaa\
+    \ root\n!\nusername admin privilege 15 role network-admin secret sha512 $6$zMFtJNDCdXNd5rQ9$2.P8pfwopGK6NmRYubumSRhgT.ee6vcqaDfvN9VFyFIGhewx3uAVxE4n.M8wvlN3SSkjYtRLO8XLklr5R/nAg/\n\
+    !\nvlan 10\n   name L2LEAF_INBAND_MGMT\n!\nvlan 110\n   name IDF1-Data\n!\nvlan\
+    \ 120\n   name IDF1-Voice\n!\nvlan 130\n   name IDF1-Guest\n!\nvlan 210\n   name\
+    \ IDF2-Data\n!\nvlan 220\n   name IDF2-Voice\n!\nvlan 230\n   name IDF2-Guest\n\
+    !\nvlan 310\n   name IDF3-Data\n!\nvlan 320\n   name IDF3-Voice\n!\nvlan 330\n\
+    \   name IDF3-Guest\n!\nvlan 4093\n   name LEAF_PEER_L3\n   trunk group LEAF_PEER_L3\n\
+    !\nvlan 4094\n   name MLAG_PEER\n   trunk group MLAG\n!\nvrf instance MGMT\n!\n\
+    interface Port-Channel1\n   description IDF1_Po51\n   no shutdown\n   switchport\n\
+    \   switchport trunk allowed vlan 10,110,120,130\n   switchport mode trunk\n \
+    \  mlag 1\n!\ninterface Port-Channel491\n   description LEAF2A_Po11\n   no shutdown\n\
+    \   switchport\n   switchport trunk allowed vlan 10,210,220,230\n   switchport\
+    \ mode trunk\n   mlag 491\n!\ninterface Port-Channel501\n   description IDF3_AGG_Po971\n\
+    \   no shutdown\n   switchport\n   switchport trunk allowed vlan 10,310,320,330\n\
+    \   switchport mode trunk\n   mlag 501\n!\ninterface Port-Channel551\n   description\
+    \ MLAG_PEER_SPINE1_Po551\n   no shutdown\n   switchport\n   switchport trunk allowed\
+    \ vlan 2-4094\n   switchport mode trunk\n   switchport trunk group LEAF_PEER_L3\n\
+    \   switchport trunk group MLAG\n!\ninterface Ethernet1\n   description LEAF1B_Ethernet51\n\
+    \   no shutdown\n   channel-group 1 mode active\n!\ninterface Ethernet49/1\n \
+    \  description LEAF2A_Ethernet1/3\n   no shutdown\n   channel-group 491 mode active\n\
+    !\ninterface Ethernet50/1\n   description LEAF3A_Ethernet97/2\n   no shutdown\n\
+    \   channel-group 501 mode active\n!\ninterface Ethernet51/1\n   description LEAF3B_Ethernet97/2\n\
+    \   no shutdown\n   channel-group 501 mode active\n!\ninterface Ethernet52/1\n\
+    \   description P2P_LINK_TO_WAN_Ethernet1/1\n   no shutdown\n   mtu 1500\n   no\
+    \ switchport\n   ip address 10.0.0.5/31\n   ip ospf network point-to-point\n \
+    \  ip ospf area 0.0.0.0\n!\ninterface Ethernet55/1\n   description MLAG_PEER_SPINE1_Ethernet55/1\n\
+    \   no shutdown\n   channel-group 551 mode active\n!\ninterface Ethernet56/1\n\
+    \   description MLAG_PEER_SPINE1_Ethernet56/1\n   no shutdown\n   channel-group\
+    \ 551 mode active\n!\ninterface Loopback0\n   no shutdown\n   ip address 172.16.1.2/32\n\
+    \   ip ospf area 0.0.0.0\n!\ninterface Management0\n   description oob_management\n\
+    \   no shutdown\n   vrf MGMT\n   ip address 172.100.100.102/24\n!\ninterface Vlan10\n\
+    \   description L2LEAF_INBAND_MGMT\n   no shutdown\n   mtu 1500\n   ip address\
+    \ 10.10.10.3/24\n   ip attached-host route export 19\n   ip virtual-router address\
+    \ 10.10.10.1\n!\ninterface Vlan110\n   description IDF1-Data\n   no shutdown\n\
+    \   ip address 10.1.10.3/23\n   ip virtual-router address 10.1.10.1\n!\ninterface\
+    \ Vlan120\n   description IDF1-Voice\n   no shutdown\n   ip address 10.1.20.3/23\n\
+    \   ip virtual-router address 10.1.20.1\n!\ninterface Vlan130\n   description\
+    \ IDF1-Guest\n   no shutdown\n   ip address 10.1.30.3/23\n   ip virtual-router\
+    \ address 10.1.30.1\n!\ninterface Vlan210\n   description IDF2-Data\n   no shutdown\n\
+    \   ip address 10.2.10.3/23\n   ip virtual-router address 10.2.10.1\n!\ninterface\
+    \ Vlan220\n   description IDF2-Voice\n   no shutdown\n   ip address 10.2.20.3/23\n\
+    \   ip virtual-router address 10.2.20.1\n!\ninterface Vlan230\n   description\
+    \ IDF2-Guest\n   no shutdown\n   ip address 10.2.30.3/23\n   ip virtual-router\
+    \ address 10.2.30.1\n!\ninterface Vlan310\n   description IDF3-Data\n   no shutdown\n\
+    \   ip address 10.3.10.3/23\n   ip virtual-router address 10.3.10.1\n!\ninterface\
+    \ Vlan320\n   description IDF3-Voice\n   no shutdown\n   ip address 10.3.20.3/23\n\
+    \   ip virtual-router address 10.3.20.1\n!\ninterface Vlan330\n   description\
+    \ IDF3-Guest\n   no shutdown\n   ip address 10.3.30.3/23\n   ip virtual-router\
+    \ address 10.3.30.1\n!\ninterface Vlan4093\n   description MLAG_PEER_L3_PEERING\n\
+    \   no shutdown\n   mtu 1500\n   ip address 10.1.1.1/31\n   ip ospf network point-to-point\n\
+    \   ip ospf area 0.0.0.0\n!\ninterface Vlan4094\n   description MLAG_PEER\n  \
+    \ no shutdown\n   mtu 1500\n   no autostate\n   ip address 192.168.0.1/31\n!\n\
+    ip virtual-router mac-address 00:1c:73:00:dc:01\n!\nip routing\nno ip routing\
+    \ vrf MGMT\n!\nmlag configuration\n   domain-id SPINES\n   local-interface Vlan4094\n\
+    \   peer-address 192.168.0.0\n   peer-link Port-Channel551\n   reload-delay mlag\
+    \ 300\n   reload-delay non-mlag 330\n!\nip route vrf MGMT 0.0.0.0/0 172.100.100.1\n\
+    !\nrouter ospf 100\n   router-id 172.16.1.2\n   passive-interface default\n  \
+    \ no passive-interface Vlan4093\n   no passive-interface Ethernet52/1\n   max-lsa\
+    \ 12000\n   redistribute connected\n!\nmanagement api http-commands\n   protocol\
+    \ https\n   no shutdown\n   !\n   vrf MGMT\n      no shutdown\n!\nend\n"
+CVP_TOPOLOGY:
+  CAMPUS_FABRIC:
+    parent_container: Tenant
+  CAMPUS_LEAFS:
+    devices:
+    - LEAF1A
+    - LEAF1B
+    - LEAF2A
+    - LEAF3A
+    - LEAF3B
+    - LEAF3C
+    - LEAF3D
+    - LEAF3E
+    parent_container: CAMPUS_FABRIC
+  CAMPUS_SPINES:
+    devices:
+    - SPINE1
+    - SPINE2
+    parent_container: CAMPUS_FABRIC
+changed: false
