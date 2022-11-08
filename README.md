@@ -62,6 +62,11 @@ You should see something like this:
 
 Review the content of the individual `group_vars` files.
 
+- CAMPUS.yml (global settings)
+- CAMPUS_FABRIC.yml (links, IP pool, mlag, varp, etc...)
+- CAMPUS_FABRIC_SERVICES.yml (vlans/svis/vrfs)
+- CAMPUS_FABRIC_PORTS.yml (port profiles)
+
 ## Build Configs
 
 ``` bash

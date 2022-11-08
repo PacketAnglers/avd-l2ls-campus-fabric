@@ -30,11 +30,11 @@ CAMPUS:
               ansible_host: 172.100.100.109
             LEAF3E:
               ansible_host: 172.100.100.110
-    CAMPUS_NETWORK_SERVICES:
+    CAMPUS_FABRIC_SERVICES:
       children:
         CAMPUS_LEAFS:
         CAMPUS_SPINES:
-    CAMPUS_NETWORK_PORTS:
+    CAMPUS_FABRIC_PORTS:
       children:
         CAMPUS_LEAFS:
         CAMPUS_SPINES:

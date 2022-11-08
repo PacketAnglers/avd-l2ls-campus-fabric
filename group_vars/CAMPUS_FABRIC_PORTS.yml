@@ -28,7 +28,7 @@ port_profiles:
 #   - switches:
 #       - LEAF1[AB] # regex match LEAF1A & LEAF1B
 #     switch_ports:
-#       - Ethernet1-48
+#       - Ethernet1-96
 #     description: IDF1 Standard Port
 #     profile: PP-DOT1X
 #     native_vlan: 110
